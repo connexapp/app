@@ -9,8 +9,8 @@ import Footer from 'components/Footer'
 
 export type ConsultancyReadProps = {
   uuid?: string | string[] | undefined
-  date?: string 
-  hour?: string 
+  date?: string
+  hour?: string
 }
 
 export type Service = {
@@ -31,21 +31,22 @@ export type FreeHours = {
   hours: number[]
 }
 
-const ConsultancyRead = ({ uuid, date, hour}: ConsultancyReadProps) => {
+const ConsultancyRead = ({ uuid, date, hour }: ConsultancyReadProps) => {
   const [service, setService] = useState<Service | null>(null)
   const [serviceId, setServiceId] = useState<number>()
   const [freeHours, setFreeHours] = useState<FreeHours[]>()
   const { request } = useRequest()
-  
+
   useEffect(() => {
     const getService = async () => {
       const config: useRequestConfig = {
         method: 'GET',
         url: `/service/read/${uuid}`
       }
-      
+
       const response = await request(config)
-      
+      console.log("response", response)
+
       setServiceId(response.service.id)
       setService(response.service)
     }
@@ -59,8 +60,8 @@ const ConsultancyRead = ({ uuid, date, hour}: ConsultancyReadProps) => {
         method: 'GET',
         url: `/schedule/getFreeHours/${serviceId}`
       }
-      
-      if(serviceId){
+
+      if (serviceId) {
         const response = await request(config)
         setFreeHours(response)
       }
@@ -93,11 +94,11 @@ const ConsultancyRead = ({ uuid, date, hour}: ConsultancyReadProps) => {
       window.open(url)
     }
   }
-  return<S.Wrapper>
-          <Menu />
-            <ConsultancyBanner freeHours={freeHours} handleClick={handleClick} {...service} />
-            <Footer bottom={false}/>
-        </S.Wrapper>
+  return <S.Wrapper>
+    <Menu />
+    <ConsultancyBanner freeHours={freeHours} handleClick={handleClick} {...service} />
+    <Footer bottom={false} />
+  </S.Wrapper>
 }
 
 export default ConsultancyRead
