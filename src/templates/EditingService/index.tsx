@@ -9,8 +9,8 @@ import { Service } from 'templates/ConsultancyRead'
 
 const FAKE_DATE_HOURS = [{ date: '04012022', hours: [1, 2, 3] }, { date: '05012022', hours: [1, 2, 3] }, { date: '06012022', hours: [1, 2, 3] }]
 
-export type Uuid ={
-  uuid: string
+export type Uuid = {
+  uuid?: string
 }
 
 export type Provider = {
@@ -55,9 +55,9 @@ const Provider = ({ uuid }: Uuid) => {
   const [providerId, setProviderId] = useState<number>()
 
   const { request } = useRequest()
-  
+
   useEffect(() => {
-    if(uuid){
+    if (uuid) {
       const getService = async () => {
         const config: useRequestConfig = {
           method: 'GET',
@@ -65,7 +65,7 @@ const Provider = ({ uuid }: Uuid) => {
         }
 
         const response = await request(config)
-        
+
         if (response.error) {
           toast.error('um erro inesperado')
           return
@@ -80,7 +80,7 @@ const Provider = ({ uuid }: Uuid) => {
       }
       getService()
     }
-    
+
   }, [])
 
   return (
@@ -89,21 +89,21 @@ const Provider = ({ uuid }: Uuid) => {
       <Menu />
       <S.Container>
         <ServiceForm service={service} />
-        <Calendar service={service} provider={providerId}/>
+        <Calendar service={service} provider={providerId} />
       </S.Container>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </S.Wrapper>
-    )
+  )
 }
 
 export default Provider

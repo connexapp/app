@@ -1,10 +1,15 @@
 import styled, { css } from 'styled-components'
 import FooterProps from './'
+
+export type FooterProps = {
+  bottom: boolean
+}
+
 export const Footer = styled.footer`
     position: absolute;
     margin-top: 20px;
     /* width: 100vw; */
-    bottom: ${({ bottom }) => (bottom ? '0' : null)};
+    bottom: ${({ bottom }: FooterProps) => (bottom ? '0' : null)};
     
     right: 0px;
     left: 0px;
