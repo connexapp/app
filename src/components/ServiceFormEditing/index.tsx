@@ -167,9 +167,16 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
     const deleteService = async () => {
       const config: useRequestConfig = {
         method: 'DELETE',
-        url: `/service/${service.uuid}`
+        url: `/service/${service.uuid}`,
+        sendToken: true,
       }
       const response = await request(config)
+      console.log("response", response)
+      if(response){
+        Router.push('/')
+
+      }
+    
     }
     deleteService()
   }
