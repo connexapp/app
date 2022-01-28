@@ -56,7 +56,7 @@ const ConsultancyBanner = ({
       const dayHoursModal: RowModal[] = []
       const dayModal = fakeDatePurchased.filter(x => x.date)
       const dayModalHours = dayModal.map(x => x.hours)
-
+      
       userData.forEach(hourDefault => {
         dayModalHours.forEach(hourModal => {
           if (hourModal.includes(hourDefault.id)) {
@@ -76,16 +76,14 @@ const ConsultancyBanner = ({
         method: 'GET',
         url: `/service/read/${uuid}`
       }
-
       const response = await request(config)
-      console.log("response", response)
       setFree(response.dateCalendar)
       setService(response.service)
     }
 
     getService()
   }, [uuid])
-
+  
   return (
     <S.Wrapper>
       <S.Background />
@@ -110,7 +108,7 @@ const ConsultancyBanner = ({
               {fakeHourPurchased ?
                 (<div>
                   <S.Label>Seu Horário marcado para</S.Label>
-                  {tableLine.map(({ id, start, end, }, index) => (
+                  {tableLine.map(({ id, start, end,}, index) => (
                     <S.DivLine key={index}>
                       <S.DivContent>
                         <S.DivLabel>

@@ -22,6 +22,7 @@ export type ProviderFormType = {
 
 const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndProvider }: ProviderFormType) => {
   const [formDataThumbnail, setformDataThumbnail] = useState<null | FormData>(null)
+  const [service, setService] = useState<any>(null)
   const [fieldError, setFieldError] = useState<FieldErrors>({})
   const { request } = useRequest()
   const [values, setValues] = useState<Service | null>({
@@ -89,7 +90,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
     });
 
     setServiceAndProvider(response);
-
+    setService(response)
     let responseThumbnail = null
     if (!response.error && formDataThumbnail) {
       const configThumbnail: useRequestConfig = {
@@ -128,17 +129,17 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   }
 
   const Home = () => {
-    Router.push('/')
+    Router.push('/profile')
   }
 
   function situation() {
-    if (registeredService){
+    if (service){
       return (<Button fullWidth width={'huge'} onClick={Home}>
-        Voltar pra home
+        Cadastrar consultoria
       </Button>)
     }else{
       return (<Button fullWidth width={'huge'} onClick={handleSubmit}>
-        Cadastrar Consultoria
+        Confirmar
       </Button>)
     }
     }
@@ -178,7 +179,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             icon={<AccountCircle />}
           />
           <TextField
-            label="Preço"
+            label="Preço por hora"
             name="price"
             type="text"
             labelFor="price"

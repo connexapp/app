@@ -6,4 +6,4 @@ export default {
   component: Footer
 } as Meta
 
-export const Default: Story = () => <Footer />
+export const Default: Story = () => <Footer bottom={false}/>

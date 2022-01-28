@@ -42,6 +42,12 @@ const SaveHoursService = ({ day, setOpenModal, service, provider, selectedTimesD
   const [tableLine, setTableLine] = useState([]);
 
   useEffect(() => {
+    
+    userData.forEach(row => {
+        row.isChecked = false
+      }
+    )
+
     if (selectedTimesDay){
       selectedTimesDay.hours.forEach(hour => {
         userData.forEach(row => {
@@ -54,10 +60,6 @@ const SaveHoursService = ({ day, setOpenModal, service, provider, selectedTimesD
       })
       return
     } 
-    userData.forEach(row => {
-        row.isChecked = false
-      }
-    )
     
     setTableLine(userData);
   }, []);
@@ -112,7 +114,6 @@ const SaveHoursService = ({ day, setOpenModal, service, provider, selectedTimesD
     <S.Wrapper>
       <S.TableDiv>
         <S.Form >
-          {console.log("tableLine", tableLine)}
           {tableLine.map((user, index) => (
             <S.DivLine key={user.id}>
               <S.DivCheckBox>

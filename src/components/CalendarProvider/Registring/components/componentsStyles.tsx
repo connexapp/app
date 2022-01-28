@@ -66,6 +66,7 @@ export const Day = styled.div`
   .daysAvailable {
     margin: 0;
     font-weight: 800;
+    background-color: blue;
     display: inline-block;
     height: 100%;
     width: 100%;

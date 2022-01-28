@@ -6,9 +6,7 @@ import dayStyles, { beforeToday } from './styles'
 import Header from './header'
 import Modal from './modal'
 import moment, { Moment } from 'moment'
-import useRequest, { useRequestConfig } from 'hooks/useRequest'
-import { ErrorOutline } from '@styled-icons/material-outlined';
-import { FreeHours, Service } from 'templates/ConsultancyRead'
+import { Service } from 'templates/ConsultancyRead'
 import { toast } from 'react-toastify'
 
 type Input = {
@@ -16,19 +14,30 @@ type Input = {
   onChange: Function
   service: Service
   providerId: number
-  registeredService : boolean
+  registeredService: boolean
 }
 
 export type selectedTimesDay = {
   date: string,
   hours: number[]
+  month: string
 }
 
-export default function CalendarComponent({ value, onChange, service, providerId, registeredService}: Input) {
+export type RegisterOfCalendar = {
+  day: string,
+  hour: number[],
+  month: string
+}
+
+export default function CalendarComponent({ value, onChange, service, providerId, registeredService }: Input) {
   const [open, setOpen] = useState(false)
-  const [selectedTimesDay, setSelectedTimesDay] = useState<selectedTimesDay>()
+  
+  const [selectedTimesDay, setSelectedTimesDay] = useState<RegisterOfCalendar | null>(null)
+
+  const [diasCadastrado, setDiasCadastrado] = useState<RegisterOfCalendar[]>([] as RegisterOfCalendar[])
+  
   const [dayModal, setDayModal] = useState<Moment>(moment())
-  const { request } = useRequest()
+  
   const calendar = buildCalendar(value)
 
   function setOpenModal(open: boolean) {
@@ -42,51 +51,33 @@ export default function CalendarComponent({ value, onChange, service, providerId
   function isSame(day: moment.Moment) {
     return day.isSame(new Date(), 'day')
   }
-  
-  async function CheckHasSelectedTimes(day: moment.Moment) {
-    const configSchedule: useRequestConfig = {
-      method: 'GET',
-      url: `schedule/hoursSelected/${service.id}/${day.format('DDMMYYYY')}`,
-      sendToken: true,
-    }
 
-    const response = await request(configSchedule)
-    if (response){
-      return 
-    }
-    return response
+  function setDataRequestFunction(param) {
+    let data = Object.assign({}, param)
+    diasCadastrado.map((data2, index) => {
+      if(data2.day === data.day){
+        diasCadastrado.splice(index, 1)
+      }})
+    diasCadastrado.push(data);
   }
 
-
-
   async function changeDay(day: moment.Moment) {
-
-
-    
     if (!service) {
       toast.error('cadastre primeiro uma consultoria')
       return
     }
-    // const configSchedule: useRequestConfig = {
-    //   method: 'GET',
-    //   url: `schedule/hoursSelected/${service.id}/${day.format('DDMMYYYY')}`,
-    //   sendToken: true,
-    // }
-  // depois arrumar api response vazio
 
-    // const response = await request(configSchedule)
 
+    const qualquer = diasCadastrado.filter((data) => data.day == day.format("DDMMYYYY"))
+
+    if (qualquer.length > 0) {
+      setSelectedTimesDay(qualquer[0])
+    }else{
+      setSelectedTimesDay(null)
+    }
+    
     if (isBefore(day) || isSame(day)) {
       return false
-    }
-      // fazer um gte na api com esse dia pra saber se esse servico ou user jah tem se sim mostrar se na n faz nd
-    const responseHay = await CheckHasSelectedTimes(day)
-    if (responseHay){
-      const FakeDataDoDiaClicado = {
-        date: "07012022",
-        hours: [1, 2, 3, 4]
-      }
-        setSelectedTimesDay(FakeDataDoDiaClicado)
     }
 
     setOpen(true)
@@ -113,7 +104,8 @@ export default function CalendarComponent({ value, onChange, service, providerId
                     changeDay(day) && !beforeToday(day)
                   }
                 >
-                  <div className={dayStyles(day, value, service)}>
+
+                  <div className={dayStyles(day, value, diasCadastrado)}>
                     {day.format('D').toString()}
                     <div className="hart"></div>
                   </div>
@@ -126,10 +118,12 @@ export default function CalendarComponent({ value, onChange, service, providerId
       <Modal
         open={open}
         day={dayModal}
+        setSelectedTimesDay={setSelectedTimesDay}
         selectedTimesDay={selectedTimesDay}
         setOpenModal={setOpenModal}
         service={service}
         providerId={providerId}
+        setDataRequestFunction={setDataRequestFunction}
       />
     </>
   )

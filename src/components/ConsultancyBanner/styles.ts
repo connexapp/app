@@ -137,6 +137,8 @@ export const ConsultancyInformationText = styled.p`
     ${media.lessThan('medium')`
       margin: ${theme.spacings.xsmall} 0;
     `}
+    width: 650px;
+    overflow-wrap: break-word;
     padding: ${theme.spacings.xsmall};
     font-size: ${theme.font.sizes.medium};
   `}

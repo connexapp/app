@@ -61,45 +61,13 @@ export default function CalendarComponent({ value, onChange, label, freeHours, r
   }
 
   async function changeDay(day: moment.Moment) {
-
-    // const configSchedule: useRequestConfig = {
-    //   method: 'GET',
-    //   url: `schedule/hoursSelected/${service.id}/${day.format('DDMMYYYY')}`,
-    //   sendToken: true,
-    // }
-    
-    // const response = await request(configSchedule)
-    
-    // if (response.error) {
-    //   toast.error('Deu erro mané')
-    //   return
-    // }
-    // verifica se o dia no escopo de cadastro de dia é o mesmo e anteriror do click, ai nao abre o modal
-    // if (registering) {
-    //   if (isBefore(day) || isSame(day)) {
-    //     return false
-    //   }
-    //   // fazer um gte na api com esse dia pra saber se esse servico ou user jah tem se sim mostrar se na n faz nd
-    //   const responseHay = await CheckHasSelectedTimes(day)
-    //   if (responseHay){
-    //     const FakeDataDoDiaClicado = {
-    //       date: "25122021",
-    //       hours: [1, 2, 3, 4]
-    //     }
-    //       setSelectedTimesDay(FakeDataDoDiaClicado)
-    //   }
-    // }
-
       freeHours.map((freeHours) => {
-        console.log("map", freeHours)
         if (freeHours.date == day.format("DDMMYYYY")){
           setOpen(true)
           setDayModal(day)
           return
         }
       })
-    // setOpen(true)
-    // setDayModal(day)
   }
 
   return (

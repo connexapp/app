@@ -4,8 +4,8 @@ import useRequest, { useRequestConfig } from 'hooks/useRequest'
 import {userData} from '../userData'
 import * as S from './styles'
 import { toast } from 'react-toastify'
-import { selectedTimesDay } from 'components/Calendar/components'
 import { Service } from 'templates/ConsultancyRead'
+import { RegisterOfCalendar } from '../../..'
 
 export interface ColumnModal {
   field: string
@@ -19,7 +19,7 @@ export interface RowModal {
   id: number
 }
 
-interface DataRequest {
+export interface DataRequest {
   day: string
   hour: number[]
   month: string
@@ -32,22 +32,30 @@ type Input = {
   day: Moment,
   service: Service, 
   providerId: number,
-  selectedTimesDay: selectedTimesDay
+  selectedTimesDay: RegisterOfCalendar | null,
+  setDataRequestFunction: Function
 }
 
 
-const SaveHoursService = ({ day, setOpenModal, service, providerId, selectedTimesDay }: Input) => {
+const SaveHoursService = ({ day, setOpenModal, service, providerId, selectedTimesDay, setDataRequestFunction }: Input) => {
   const { request } = useRequest()
   const [tableLine, setTableLine] = useState([]);
 
   useEffect(() => {
-    selectedTimesDay?.hours.forEach(hour =>{
-      userData.forEach(row => {
-        if (row.id == hour){
-          row.isChecked = true
-        }
+    userData.forEach(row => row.isChecked = false)
+
+    if(selectedTimesDay != null){
+      selectedTimesDay?.hour.forEach(hour =>{
+        userData.forEach(row => {
+          if (row.id == hour){
+            row.isChecked = true
+          }
+        })
       })
-    })
+      setTableLine(userData);
+      return
+    }
+
     setTableLine(userData);
   }, []);
 
@@ -62,7 +70,6 @@ const SaveHoursService = ({ day, setOpenModal, service, providerId, selectedTime
     dataRequest.hour = hours.map(x => x.id)
     dataRequest.month = day.format('MMYYYY')
     dataRequest.day = day.format('DDMMYYYY')
-
     const configSchedule: useRequestConfig = {
       method: 'POST',
       url: `schedule/serviceHour/${service.id}/${providerId}`,
@@ -72,6 +79,7 @@ const SaveHoursService = ({ day, setOpenModal, service, providerId, selectedTime
 
     const response = await request(configSchedule)
     if (response){
+      setDataRequestFunction(dataRequest)
       toast.success('Horas Salvas com sucesso');
     }
 
@@ -121,7 +129,6 @@ const SaveHoursService = ({ day, setOpenModal, service, providerId, selectedTime
         <S.ButtonStyled onClick={handleOnCancel}>Cancelar</S.ButtonStyled>
         <S.ButtonStyled onClick={handleOnSave}>Salvar</S.ButtonStyled>
       </S.DivButton>
-      
     </S.Wrapper>
   )
 }

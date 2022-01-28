@@ -1,12 +1,23 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
- 
+  max-width: 29.3rem;
+  min-width: 29.3rem;
+  max-height: 24.8rem;
+  min-height: 24.8rem;
   ${({ theme }) => css`
     color: ${theme.colors.black};
     cursor: pointer;
     border: 1px solid #e8e8e8;
   `}
+    margin: 0 1.6rem 1.6rem 1.6rem;
+
+  @media (min-width: 1170px){
+    margin: 0 1.6rem 1.6rem 1.6rem;
+
+  }
+
+
 `
 export const CardTitle = styled.p`
   ${({ theme }) => css`
@@ -26,6 +37,7 @@ export const Containerimagem = styled.div`
   width: 100%;
   max-height: 16.3rem;
   min-height: 16.3rem;
+  
 `
 
 

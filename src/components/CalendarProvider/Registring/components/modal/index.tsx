@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Backdrop, Box, Modal, Fade, BoxProps } from '@material-ui/core'
+import React from 'react'
+import { Backdrop, Box, Modal, Fade } from '@material-ui/core'
 import SaveHoursService from './table/SaveHoursService'
-import BuyingServiceTime from './table/BuyingServiceTime'
 import { Title, CloseBox } from './styles'
 import { Moment } from 'moment'
-import useRequest, { useRequestConfig } from 'hooks/useRequest'
-import { FreeHours, Service } from 'templates/ConsultancyRead'
-import { selectedTimesDay } from '..'
+import useRequest from 'hooks/useRequest'
+import { Service } from 'templates/ConsultancyRead'
+import { RegisterOfCalendar } from '..'
 
 type Input = {
   open: boolean,
@@ -14,53 +13,16 @@ type Input = {
   setOpenModal: Function,
   service: Service,
   providerId: number
-  selectedTimesDay: selectedTimesDay
+  selectedTimesDay: RegisterOfCalendar | null,
+  setDataRequestFunction: Function
+  setSelectedTimesDay: Function
 }
 
-export default function ModalContent({ open, day, setOpenModal, service, providerId, selectedTimesDay }: Input) {
-
-  const { request } = useRequest()
-
-  // useEffect(() => {
-  //   const getService = async () => {
-  //     const config: useRequestConfig = {
-  //       method: 'GET',
-  //       url: `/service/read/${uuid}`
-  //     }
-
-  //     const response = await request(config)
-  //   }
-
-  //   getService()
-  // }, [request, uuid])
-
-  // const handleClick = async (gateway: string) => {
-  //   const configs: useRequestConfig = {
-  //     method: 'POST',
-  //     url: '/payment/create',
-  //     sendToken: true,
-  //     data: {
-  //       serviceUuid: uuid
-  //       // aki mandar o dia e o id da hora 
-  //     }
-  //   }
-
-  //   if (gateway === 'MERCADO_PAGO') {
-  //     configs.data.gateway = 'MERCADO_PAGO'
-  //   }
-
-  //   if (gateway === 'NOWPAYMENTS') {
-  //     configs.data.gateway = 'NOWPAYMENTS'
-  //   }
-
-  //   const { url } = await request(configs)
-  //   if (url) {
-  //     window.open(url)
-  //   }
-  // }
-
+export default function ModalContent({ setSelectedTimesDay, open, day, setOpenModal, service, providerId, selectedTimesDay, setDataRequestFunction }: Input) {
+  
   const handleClose = () => {
     setOpenModal(false)
+    setSelectedTimesDay(null)
   }
 
   return (
@@ -91,11 +53,11 @@ export default function ModalContent({ open, day, setOpenModal, service, provide
             padding: "3rem",
           }}>
             <CloseBox onClick={handleClose}>
-                <img src="/delete.png" />
+              <img src="/delete.png" />
             </CloseBox>
             <Title>{`Selecionar hórario`}</Title>
             <Title>{`para o dia ${day?.format('DD/MM')}`}</Title>
-            <SaveHoursService day={day} selectedTimesDay={selectedTimesDay} setOpenModal={setOpenModal} service={service} providerId={providerId} />
+            <SaveHoursService setDataRequestFunction={setDataRequestFunction} day={day} selectedTimesDay={selectedTimesDay} setOpenModal={setOpenModal} service={service} providerId={providerId} />
           </Box>
         </Fade>
       </Modal>

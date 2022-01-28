@@ -3,6 +3,7 @@ import useRequest, { useRequestConfig } from 'hooks/useRequest'
 import Menu from 'components/Menu'
 import Banner from 'components/Banner'
 import React from 'react'
+import CardSliderHome from 'components/CardSliderHome'
 import CardSlider from 'components/CardSlider'
 import { Container } from 'components/Container'
 
@@ -57,7 +58,8 @@ const Home = () => {
       <S.CardSection>
         <Container>
           <h2>Aprenda com os Melhores</h2>
-          <CardSlider items={servicesMostVieweds} />
+
+            <CardSliderHome items={servicesMostVieweds} />
         </Container>
       </S.CardSection>
       <Footer bottom={false}/>

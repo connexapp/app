@@ -138,8 +138,6 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
       if(response){
         toast.success('Consultoria atulizada com sucesso')
       }
-      console.log("response update", response)
-
     }
     updateService()
   }
@@ -210,7 +208,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             icon={<AccountCircle />}
           />
           <TextField
-            label="Preço"
+            label="Preço por hora"
             name="price"
             type="text"
             labelFor="price"
@@ -247,7 +245,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
       </form>
       <S.FormButton>
         <Button fullWidth width={'huge'} variant="blue" onClick={updateConsultancy}>
-          Atualizar Consultoria
+          Editar Consultoria
         </Button>
         <S.SepareButton>
           <Button fullWidth width={'huge'} onClick={CancelConsultancy} variant="red">

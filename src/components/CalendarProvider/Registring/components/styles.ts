@@ -15,17 +15,13 @@ function isToday(day: moment.Moment) {
   return day.isSame(new Date(), 'day')
 }
 
-function daysAvailable(day: moment.Moment, service): any {
-  // if (service){
-  //   for (let i = 0; i < service?.hours.length; i++) {
-  //     if (service?.hours[i].date === day.format('DDMMYYYY')) {
-  //       if (day.isBefore(new Date(), 'day')) {
-  //         return false
-  //       }
-  //       return true
-  //     }
-  //   }
-  // }
+function daysAvailable(day: moment.Moment, diasCadastrado): any {
+    for (let i = 0; i < diasCadastrado.length; i++) {
+      if (diasCadastrado[i].day === day.format('DDMMYYYY')){
+            return true
+          }
+      }
+    }
   // if (freeHours != undefined) {
   //   for (let i = 0; i < freeHours?.length; i++) {
   //     if (freeHours[i].date === day.format('DDMMYYYY')) {
@@ -36,10 +32,9 @@ function daysAvailable(day: moment.Moment, service): any {
   //     }
   //   }
   // }
-}
 
-export default function dayStyles(day: moment.Moment, value: moment.Moment , service: any) {
-  if (daysAvailable(day, service)) return "daysAvailable"
+export default function dayStyles(day: moment.Moment, value: moment.Moment, diasCadastrado: any) {
+  if (daysAvailable(day, diasCadastrado)) return "daysAvailable"
   if (beforeToday(day)) return 'before'
   if (isSelected(day, value)) return 'selected'
   if (isToday(day)) return 'today'
