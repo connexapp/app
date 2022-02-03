@@ -26,6 +26,7 @@ export const Container = styled.div`
   `}
 `
 export const ConsultancyBoxWrapper = styled.div`
+  max-height: 320px;
   ${({ theme }) => css`
     ${media.greaterThan('medium')`
       display: grid;
@@ -47,11 +48,13 @@ export const ConsultancyInfoBox = styled.div`
   `}
 `
 export const ConsultancyInfoBoxTitle = styled.h2`
+  text-indent: 1.5rem;
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xxlarge};
   `}
 `
 export const ConsultancyInfoBoxSubTitle = styled.h3`
+  text-indent: 1.5rem;
   ${({ theme }) => css`
     font-weight: ${theme.font.normal};
     font-size: ${theme.font.sizes.large};
@@ -133,19 +136,18 @@ export const ConsultancyInformation = styled.p`
   `}
 `
 export const ConsultancyInformationText = styled.p`
+  text-indent: 1rem;
+  margin: 0;
   ${({ theme }) => css`
     ${media.lessThan('medium')`
-      margin: ${theme.spacings.xsmall} 0;
     `}
-    width: 650px;
     overflow-wrap: break-word;
-    padding: ${theme.spacings.xsmall};
     font-size: ${theme.font.sizes.medium};
   `}
 `
 export const ConsultancyVideo = styled.div`
   ${({ theme }) => css`
-    margin: ${theme.spacings.xsmall};
+    margin-top: ${theme.spacings.xsmall};
 
     display: flex;
     justify-content: center;

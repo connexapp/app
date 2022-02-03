@@ -28,7 +28,7 @@ export default function CalendarHeader({ value, setValue }) {
       case 'March':
         return 'Março'
       case 'April':
-        return 'Abriu'
+        return 'Abril'
       case 'May':
         return 'Maio'
       case 'June':
@@ -42,7 +42,7 @@ export default function CalendarHeader({ value, setValue }) {
       case 'October':
         return 'Outubro'
       case 'November':
-        return 'novembro'
+        return 'Novembro'
       case 'December':
         return 'Dezembro'
     }

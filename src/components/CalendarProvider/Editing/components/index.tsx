@@ -9,7 +9,6 @@ import moment, { Moment } from 'moment'
 import useRequest, { useRequestConfig } from 'hooks/useRequest'
 import { FormError } from './../../../LoginForm/styles';
 import { ErrorOutline } from '@styled-icons/material-outlined';
-import { toast } from 'react-toastify'
 import { ServiceConsultancyEditing } from 'templates/EditingService'
 
 type Input = {
@@ -24,6 +23,7 @@ export type selectedTimesDay = {
   date: string,
   hours: number[]
 }
+
 export default function CalendarComponent({ value, onChange, uuid, service, provider}: Input) {
   const [formError, setFormError] = useState('')
   const [open, setOpen] = useState(false)
@@ -35,8 +35,6 @@ export default function CalendarComponent({ value, onChange, uuid, service, prov
   function setOpenModal(open: boolean) {
     setOpen(open)
   }
-
-  
   
   async function CheckHasSelectedTimes(day: moment.Moment) {
     const configSchedule: useRequestConfig = {

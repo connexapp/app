@@ -25,11 +25,11 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const [fieldError, setFieldError] = useState<FieldErrors>({})
   const { request } = useRequest()
   const [values, setValues] = useState<ServiceConsultancyEditing | null>(null)
-  
+
   useEffect(() => {
-    if(service){
+    if (service) {
       setValues(service)
-    }else{
+    } else {
       setValues({
         title: '',
         subtitle: '',
@@ -38,15 +38,13 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         videoUrl: ''
       } as ServiceConsultancyEditing)
     }
-    
-  }, [service])
-  
-  const handleInput = (field: string, value: string) => {
 
+  }, [service])
+
+  const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
   }
 
-  
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     const errors = signInServiceValidate(values)
@@ -63,62 +61,64 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
       return
     }
 
-    const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
+    // const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
 
-    const configs: useRequestConfig = {
-      method: 'POST',
-      url: '/service',
-      sendToken: true,
-      data: {
-        title: values.title,
-        subtitle: values.subtitle,
-        description: values.description,
-        price: values.price.replace(',', '.'),
-        videoUrl: urlYoutube,
-        priceKind: 'HOUR'
-      }
-    }
+    // const configs: useRequestConfig = {
+    //   method: 'POST',//pat
+    //   url: '/service',//uiid
+    //   sendToken: true,
+    //   data: {
+    //     title: values.title,
+    //     subtitle: values.subtitle,
+    //     description: values.description,
+    //     price: values.price.replace(',', '.'),
+    //     videoUrl: urlYoutube,
+    //     priceKind: 'HOUR'
+    //   }
+    // }
 
-    const response = await request(configs)
+    // const response = await request(configs)
 
-    if (response.error) {
-      toast.error('Deu erro mané');
-      return
-    }
-    toast.success('Agora cadastre seu horário', {
-      position: "top-center",
-      autoClose: 15000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      rtl: false,
-      pauseOnFocusLoss: true,
-      draggable: true,
-      pauseOnHover: true
-    });
+    // if (response.error) {
+    //   toast.error('Deu erro mané');
+    //   return
+    // }
+    // toast.success('Agora cadastre seu horário', {
+    //   position: "top-center",
+    //   autoClose: 15000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   rtl: false,
+    //   pauseOnFocusLoss: true,
+    //   draggable: true,
+    //   pauseOnHover: true
+    // });
 
-    setServiceAndProvider(response.id, response.provider?.id);
+    // setServiceAndProvider(response.id, response.provider?.id);
 
-    let responseThumbnail = null
-    if (!response.error && formDataThumbnail) {
-      const configThumbnail: useRequestConfig = {
-        method: 'POST',
-        url: `/service/uploadThumbnail/${response.uuid}`,
-        sendToken: true,
-        data: formDataThumbnail
-      }
+    // let responseThumbnail = null
+    // if (!response.error && formDataThumbnail) {
+    //   const configThumbnail: useRequestConfig = {
+    //     method: 'POST',
+    //     url: `/service/uploadThumbnail/${response.uuid}`,
+    //     sendToken: true,
+    //     data: formDataThumbnail
+    //   }
 
-      responseThumbnail = await request(configThumbnail)
-    }
+    //   responseThumbnail = await request(configThumbnail)
+    // }
 
-    if (responseThumbnail?.error) {
-      toast.error('Deu erro mané, faça upload da sua Thumbnail novamente')
-      return
-    }
-    setRegisteredService(true)
+    // if (responseThumbnail?.error) {
+    //   toast.error('Deu erro mané, faça upload da sua Thumbnail novamente')
+    //   return
+    // }
+    // setRegisteredService(true)
 
+    updateConsultancy()
   }
 
   function updateConsultancy() {
+    console.log('entrou aqui')
     const updateService = async () => {
       const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
       const config: useRequestConfig = {
@@ -135,8 +135,26 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         }
       }
       const response = await request(config)
-      if(response){
+      console.log('entrou aqui respo', response)
+      if (response) {
         toast.success('Consultoria atulizada com sucesso')
+      }
+
+      let responseThumbnail = null
+      if (!response.error && formDataThumbnail) {
+        const configThumbnail: useRequestConfig = {
+          method: 'POST',
+          url: `/service/uploadThumbnail/${response.uuid}`,
+          sendToken: true,
+          data: formDataThumbnail
+        }
+
+        responseThumbnail = await request(configThumbnail)
+      }
+
+      if (responseThumbnail?.error) {
+        toast.error('Deu erro mané, faça upload da sua Thumbnail novamente')
+        return
       }
     }
     updateService()
@@ -151,33 +169,25 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
 
         setformDataThumbnail(formData)
       }
-    },
-    []
-  )
+    }, [])
 
   const setMaskPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
+
   const Home = () => {
     Router.push('/')
-
   }
 
   async function CancelConsultancy() {
     const deleteService = async () => {
       const config: useRequestConfig = {
         method: 'DELETE',
-        url: `/service/${service.uuid}`,
-        sendToken: true,
+        url: `/service/${service.uuid}`
       }
-      const response = await request(config)
-      console.log("response", response)
-      if(response){
-        Router.push('/')
-
-      }
-    
+      const response = await request(config) // TODO colocar mensagem de erro, mesmo esquema dos demais
     }
+
     deleteService()
   }
   return (
@@ -251,7 +261,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         </S.FormInputs>
       </form>
       <S.FormButton>
-        <Button fullWidth width={'huge'} variant="blue" onClick={updateConsultancy}>
+        <Button fullWidth width={'huge'} variant="blue" type="submit">
           Editar Consultoria
         </Button>
         <S.SepareButton>

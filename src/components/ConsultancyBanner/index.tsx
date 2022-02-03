@@ -84,7 +84,9 @@ const ConsultancyBanner = ({
     getService()
   }, [uuid])
   
-  return (
+
+  let varivael =`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum Aliquam nonummy auctor massa Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.`
+return (
     <S.Wrapper>
       <S.Background />
       <S.Container>
@@ -151,10 +153,15 @@ const ConsultancyBanner = ({
           </S.ConsultancyPricingBox>
         </S.ConsultancyBoxWrapper>
         <S.ConsultancyInformation>
-          <div>
-            <S.ConsultancyInformationText>
-              {description}
-            </S.ConsultancyInformationText>
+          <div style={{ maxWidth: "750px" }}>
+          {description?.split(".").map(linha => (
+              <S.ConsultancyInformationText>
+                {linha}
+              </S.ConsultancyInformationText>
+            ))}
+            {/* <S.ConsultancyInformationText> */}
+              {/* {description} */}
+            {/* </S.ConsultancyInformationText> */}
             <S.ConsultancyVideo>
               <iframe
                 height="315"

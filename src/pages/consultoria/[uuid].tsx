@@ -12,7 +12,7 @@ export default function Consultoria() {
       setLoading(false)
     }, 500)
   }, [])
-  const { uuid, date, hour } = router.query
+  const { uuid } = router.query
   return <>
   {
     loading ?
@@ -20,7 +20,7 @@ export default function Consultoria() {
         <Loading />
       ) :
       (
-        <ConsultancyRead hour={hour as string} date={date as string} uuid={uuid as string} />
+        <ConsultancyRead uuid={uuid as string} />
       )
   }
   </>

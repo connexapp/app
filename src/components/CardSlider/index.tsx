@@ -27,7 +27,6 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
     if (!dragging) {
       router.push({
         pathname: `/consultoria/${item.uuid}`,
-        query: { date: "11122021", hour: "3" }
 
       })
     }
