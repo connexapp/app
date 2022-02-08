@@ -41,7 +41,7 @@ const ProviderForm = () => {
     }
 
     setFieldError({})
-
+console.log(values)
     const response = await signInProvider(values)
 
     if (response.error) {

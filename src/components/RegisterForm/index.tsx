@@ -27,7 +27,7 @@ const RegisterForm = () => {
     phoneNumber: '',
     confirm_password: ''
   })
-  const { signUp } = useContext(AuthContext)
+  const { signUp, signInProvider } = useContext(AuthContext)
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -53,7 +53,17 @@ const RegisterForm = () => {
       phoneNumber: mask(values.phoneNumber, ['9999999999'])
     }
 
+    let valueSignInProvider = { email: values.email, name: values.name }
+    console.log("valueSignInProvider", valueSignInProvider)
     await signUp(signUpForm)
+    
+    const response = await signInProvider(valueSignInProvider)
+    if (response) {
+      console.log(response)
+      setFormError('Email já usado!')
+      return
+    }
+
   }
 
   return (

@@ -39,22 +39,24 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
       {
         breakpoint: 1375,
         settings: {
-          arrows: false,
+          arrows: true,
           slidesToShow: 4
         }
       },
       {
         breakpoint: 1024,
         settings: {
-          arrows: false,
-          slidesToShow: 2.2
+          arrows: true, 
+          slidesToShow: 2.6
         }
       },
       {
         breakpoint: 570,
         settings: {
+          prevArrow: <ArrowLeft />,
+          infinite: true,
           arrows: false,
-          slidesToShow: 1.2
+          slidesToShow: 1.4
         }
       },
       {
