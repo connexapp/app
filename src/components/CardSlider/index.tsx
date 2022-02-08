@@ -34,11 +34,12 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
 
   const settings: SliderSettings = {
     slidesToShow: 4,
-    infinite: false,
+    infinite: true,
     responsive: [
       {
         breakpoint: 1375,
         settings: {
+          infinite: true,
           arrows: true,
           slidesToShow: 4
         }
@@ -46,14 +47,14 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
       {
         breakpoint: 1024,
         settings: {
-          arrows: true, 
+          infinite: true,
+          arrows: true,
           slidesToShow: 2.6
         }
       },
       {
         breakpoint: 570,
         settings: {
-          prevArrow: <ArrowLeft />,
           infinite: true,
           arrows: false,
           slidesToShow: 1.4
@@ -62,6 +63,7 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
       {
         breakpoint: 375,
         settings: {
+          infinite: true,
           arrows: false,
           slidesToShow: 1.1
         }
