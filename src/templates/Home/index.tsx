@@ -56,7 +56,7 @@ const Home = () => {
       <S.CardSection>
         <Container>
           <h2>Fale com um especialista</h2>
-          <Spin style={{ width: "fit-content", margin: "100px auto 0 auto "}} indicator={antIcon} spinning={isSpinning}>
+          <Spin style={{ width: "fit-content", margin: "30px auto 0 auto "}} indicator={antIcon} spinning={isSpinning}>
             {!isSpinning && 
               <CardSliderHome items={servicesRecents} />
             }
