@@ -19,7 +19,7 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, item: CardProps) => {
     e.preventDefault()
-    if (item?.provider.id === user?.user?.id) {
+    if (item?.provider.id === user?.user?.provider.id) {
       router.push(`/service/${item.uuid}`)
       return
     }
