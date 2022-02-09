@@ -12,6 +12,7 @@ import { currencyMask } from './maskinut'
 import { toast } from 'react-toastify'
 import Router from 'next/router'
 import { ServiceConsultancyEditing } from 'templates/EditingService'
+import router from 'next/router'
 
 export type ProviderFormType = {
   setRegisteredService?: Function
@@ -183,9 +184,12 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
     const deleteService = async () => {
       const config: useRequestConfig = {
         method: 'DELETE',
+        sendToken: true,
         url: `/service/${service.uuid}`
       }
-      const response = await request(config) // TODO colocar mensagem de erro, mesmo esquema dos demais
+      const response = await request(config)
+
+      router.push('/profile')
     }
 
     deleteService()
