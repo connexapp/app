@@ -27,7 +27,6 @@ const fieldsServiceValidations = {
   subtitle: Joi.string().required(),
   description: Joi.string().required(),
   price: Joi.string().required(),
-  videoUrl: Joi.string().required()
 }
 
 const fieldsRecoverPassword = {
@@ -45,7 +44,7 @@ export type FieldErrors = {
 
 function getFieldErrors(objError: Joi.ValidationResult) {
   const errors: FieldErrors = {}
-
+  console.log("objError", objError)
   if (objError.error) {
     objError.error.details.forEach((err) => {
       errors[err.path.join('.')] = err.message
@@ -60,7 +59,7 @@ type ValidateServiceValues = {
   subtitle: string
   description: string
   price: string
-  videoUrl: string
+  videoUrl?: string
 }
 
 export function signInServiceValidate(values: ValidateServiceValues) {

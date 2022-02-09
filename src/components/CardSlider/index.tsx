@@ -34,7 +34,7 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
 
   const settings: SliderSettings = {
     slidesToShow: 4,
-    infinite: true,
+    infinite: false,
     responsive: [
       {
         breakpoint: 1375,

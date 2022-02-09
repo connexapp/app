@@ -42,17 +42,18 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     const errors = signInServiceValidate(values)
-
-    if (Object.keys(errors).length) {
-      setFieldError(errors)
-      return
-    }
+    console.log("errors", errors)
+    // if (Object.keys(errors).length) {
+    //   setFieldError(errors)
+    //   return
+    // }
 
     setFieldError({})
-
-    if (!values.videoUrl.includes('youtube')) {
-      toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
-      return
+    if (values.videoUrl.length >= 1) {
+      if (!values.videoUrl.includes('youtube')) {
+        toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
+        return
+      }
     }
 
     const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')

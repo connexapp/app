@@ -9,4 +9,8 @@ export const SizeCalendar = styled.div`
   height: 420px;
   width: 420px;
   min-width: 420px;
+  @media (max-width:420px){
+    width: 320px;
+    min-width: 320px;
+  }
 `

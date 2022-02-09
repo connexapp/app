@@ -20,10 +20,9 @@ const Banner = ({ box }: Banner) => {
       (
         <Container>
           <S.BoxInfo>
-            <h1>Fale com Especialistas</h1>
+            <h1>Tenha Consultorias com Especialistas!</h1>
             <p>
-              Aqui você pode falar com os melhores e os maiores especialistas do
-              Brasil nas suas áreas de atuação
+              Aqui você pode ter uma consultoria personalizada alguns dos maiores especialistas do Brasil nas suas áreas.
             </p>
             {user?.user?.name !== undefined ? (
               null

@@ -57,9 +57,11 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
 
     setFieldError({})
 
-    if (!values.videoUrl.includes('youtube')) {
-      toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
-      return
+    if (values.videoUrl.length >= 1) {
+      if (!values.videoUrl.includes('youtube')) {
+        toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
+        return
+      }
     }
 
     // const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
