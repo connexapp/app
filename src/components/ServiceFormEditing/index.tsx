@@ -47,16 +47,17 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
+    console.log("sssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
     event.preventDefault()
     const errors = signInServiceValidate(values)
 
-    if (Object.keys(errors).length) {
-      setFieldError(errors)
-      return
-    }
+    // if (Object.keys(errors).length) {
+    //   setFieldError(errors)
+    //   return
+    // }
 
     setFieldError({})
-
+    console.log("values.videoUrl", values.videoUrl)
     if (values.videoUrl.length >= 1) {
       if (!values.videoUrl.includes('youtube')) {
         toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
@@ -267,7 +268,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         </S.FormInputs>
       </form>
       <S.FormButton>
-        <Button fullWidth width={'huge'} variant="blue" type="submit">
+        <Button fullWidth width={'huge'} onClick={handleSubmit} variant="blue" type="submit">
           Editar Consultoria
         </Button>
         <S.SepareButton>
