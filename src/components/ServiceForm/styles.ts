@@ -54,3 +54,4 @@ export const LabelThumbnail = styled.label`
 export const SepareButton = styled.div`
   margin-top: 10px;
 `
+

@@ -58,7 +58,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
 
     setFieldError({})
     console.log("values.videoUrl", values.videoUrl)
-    if (values.videoUrl.length >= 1) {
+    if (values.videoUrl.length >= 1) { 
       if (!values.videoUrl.includes('youtube')) {
         toast.error('Deu erro mané, a url do vídeo tem que ser do YouTube')
         return
@@ -260,7 +260,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             label="Url do vídeo"
             labelFor="videoUrl"
             value={values?.videoUrl}
-            placeholder="Coloque a url da vídeo da sua consultoria"
+            placeholder="Insira a URL do seu vídeo"
             error={fieldError?.videoUrl}
             onInputChange={(v) => handleInput('videoUrl', v)}
             icon={<AccountCircle />}

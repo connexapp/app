@@ -103,3 +103,12 @@ export const Wrapper = styled.div<WrapperProps>`
     ${disabled && wrapperModifiers.disabled(theme)}
   `}
 `
+export const ContainerCount = styled.div`
+  width: 1px;
+`
+export const Count = styled.div`
+  position: relative;
+  right: 10px;
+  bottom: 0;
+  color: #00000066;
+`
