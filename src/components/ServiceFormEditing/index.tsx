@@ -13,6 +13,8 @@ import { toast } from 'react-toastify'
 import Router from 'next/router'
 import { ServiceConsultancyEditing } from 'templates/EditingService'
 import router from 'next/router'
+import service from 'pages/service'
+import { number } from 'joi'
 
 export type ProviderFormType = {
   setRegisteredService?: Function
@@ -26,10 +28,16 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const [fieldError, setFieldError] = useState<FieldErrors>({})
   const { request } = useRequest()
   const [values, setValues] = useState<ServiceConsultancyEditing | null>(null)
+  const [countTitle, setCountTitle] = useState<number>()
+  const [countSubTitle, setCountSubTitle] = useState<number>()
+  const [countDescription, setCountDescription] = useState<number>()
 
   useEffect(() => {
     if (service) {
       setValues(service)
+      setCountDescription(400 - service.description.length)
+      setCountSubTitle(50 - service.subtitle.length)
+      setCountTitle(50 - service.title.length)
     } else {
       setValues({
         title: '',
@@ -43,6 +51,16 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   }, [service])
 
   const handleInput = (field: string, value: string) => {
+    if (field === 'title') {
+      setCountTitle(50 - value.length)
+    }
+    if (field === 'subtitle') {
+      setCountSubTitle(50 - value.length)
+    }
+    if (field === 'description') {
+      setCountDescription(400 - value.length)
+    }
+
     setValues((s) => ({ ...s, [field]: value }))
   }
 
@@ -191,8 +209,10 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         url: `/service/${service.uuid}`
       }
       const response = await request(config)
-
-      router.push('/profile')
+      toast.success("Consultoria deletada com sucesso")
+      setTimeout(() => {
+        router.push('/profile')
+      }, 2000)
     }
 
     deleteService()
@@ -209,6 +229,8 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             error={fieldError?.title}
             onInputChange={(v) => handleInput('title', v)}
             icon={<AccountCircle />}
+            maxLength={50}
+            count={countTitle}
           />
           <TextField
             textArea={true}
@@ -218,6 +240,8 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque o Subtítulo da consultoria"
             error={fieldError?.subtitle}
             onInputChange={(v) => handleInput('subtitle', v)}
+            maxLength={50}
+            count={countSubTitle}
             icon={<AccountCircle />}
           />
           <TextField
@@ -229,6 +253,8 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque a descrição da consultoria"
             error={fieldError?.description}
             onInputChange={(v) => handleInput('description', v)}
+            count={countDescription}
+            maxLength={400}
             icon={<AccountCircle />}
           />
           <TextField

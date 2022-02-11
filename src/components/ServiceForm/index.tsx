@@ -26,7 +26,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [countTitle, setCountTitle] = useState(50)
   const [countSubTitle, setCountSubTitle] = useState(50)
-  const [countDescription, setCountDescription] = useState(200)
+  const [countDescription, setCountDescription] = useState(400)
   const { request } = useRequest()
   const [values, setValues] = useState<Service | null>({
     title: '',
@@ -193,7 +193,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque a descrição da consultoria"
             error={fieldError?.description}
             onInputChange={(v) => handleInput('description', v)}
-            maxLength={200}
+            maxLength={400}
             icon={<AccountCircle />}
             count={countDescription}
           />
