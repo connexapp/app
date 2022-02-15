@@ -35,9 +35,9 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   useEffect(() => {
     if (service) {
       setValues(service)
-      setCountDescription(400 - service.description.length)
-      setCountSubTitle(50 - service.subtitle.length)
-      setCountTitle(50 - service.title.length)
+      setCountDescription(1300 - service.description.length)
+      setCountSubTitle(100 - service.subtitle.length)
+      setCountTitle(60 - service.title.length)
     } else {
       setValues({
         title: '',
@@ -52,13 +52,13 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
 
   const handleInput = (field: string, value: string) => {
     if (field === 'title') {
-      setCountTitle(50 - value.length)
+      setCountTitle(60 - value.length)
     }
     if (field === 'subtitle') {
-      setCountSubTitle(50 - value.length)
+      setCountSubTitle(100 - value.length)
     }
     if (field === 'description') {
-      setCountDescription(400 - value.length)
+      setCountDescription(1300 - value.length)
     }
 
     setValues((s) => ({ ...s, [field]: value }))
@@ -142,7 +142,11 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   function updateConsultancy() {
     console.log('entrou aqui')
     const updateService = async () => {
-      const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
+      const anything = values.videoUrl.split('&') 
+
+
+      const urlYoutube = anything[0].replace('watch?v=', 'embed/')
+  
       const config: useRequestConfig = {
         method: 'PATCH',
         url: `/service/${service.uuid}`,
@@ -229,7 +233,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             error={fieldError?.title}
             onInputChange={(v) => handleInput('title', v)}
             icon={<AccountCircle />}
-            maxLength={50}
+            maxLength={60}
             count={countTitle}
           />
           <TextField
@@ -240,7 +244,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque o Subtítulo da consultoria"
             error={fieldError?.subtitle}
             onInputChange={(v) => handleInput('subtitle', v)}
-            maxLength={50}
+            maxLength={100}
             count={countSubTitle}
             icon={<AccountCircle />}
           />
@@ -254,7 +258,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             error={fieldError?.description}
             onInputChange={(v) => handleInput('description', v)}
             count={countDescription}
-            maxLength={400}
+            maxLength={1300}
             icon={<AccountCircle />}
           />
           <TextField

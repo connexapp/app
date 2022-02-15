@@ -108,7 +108,7 @@ export const ContainerCount = styled.div`
 `
 export const Count = styled.div`
   position: relative;
-  right: 10px;
+  right: 23px;
   bottom: 0;
   color: #00000066;
 `

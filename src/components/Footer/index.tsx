@@ -15,7 +15,7 @@ const Footer = ({ bottom }: FooterProps) => {
   }
   return (
     <S.Footer bottom={bottom}>
-      {user.isAuthenticated !== true ?
+      {/* {user.isAuthenticated !== true ? */}
       (<S.Wrapper>
         <div>
           <S.DivImagem>
@@ -44,7 +44,8 @@ const Footer = ({ bottom }: FooterProps) => {
           <br />
           <p>especialistas e referências de todos os segmentos.</p>
         </div>
-      </S.Wrapper>) : (null)}
+      </S.Wrapper>
+      {/* ) : (null)} */}
       <S.DivContentContactWrapper>
         <S.DivContentContact>
           <S.Logo>

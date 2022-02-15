@@ -24,9 +24,9 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const [formDataThumbnail, setformDataThumbnail] = useState<null | FormData>(null)
   const [service, setService] = useState<any>(null)
   const [fieldError, setFieldError] = useState<FieldErrors>({})
-  const [countTitle, setCountTitle] = useState(50)
-  const [countSubTitle, setCountSubTitle] = useState(50)
-  const [countDescription, setCountDescription] = useState(400)
+  const [countTitle, setCountTitle] = useState(60)
+  const [countSubTitle, setCountSubTitle] = useState(100)
+  const [countDescription, setCountDescription] = useState(1300)
   const { request } = useRequest()
   const [values, setValues] = useState<Service | null>({
     title: '',
@@ -39,13 +39,13 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   const handleInput = (field: string, value: string) => {
     console.log(field)
     if(field === 'title') {
-      setCountTitle(50 - value.length)
+      setCountTitle(60 - value.length)
     }
     if (field === 'subtitle') {
-      setCountSubTitle(50 - value.length)
+      setCountSubTitle(100 - value.length)
     }
     if (field === 'description') {
-      setCountDescription(200 - value.length)
+      setCountDescription(1300 - value.length)
     }
     setValues((s) => ({ ...s, [field]: value }))
   }
@@ -67,8 +67,11 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
         return
       }
     }
+    
+    const anything = values.videoUrl.split('&') 
 
-    const urlYoutube = values.videoUrl.replace('watch?v=', 'embed/')
+
+    const urlYoutube = anything[0].replace('watch?v=', 'embed/')
 
     const configs: useRequestConfig = {
       method: 'POST',
@@ -169,7 +172,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             error={fieldError?.title}
             onInputChange={(v) => handleInput('title', v)}
             icon={<AccountCircle />}
-            maxLength={50}
+            maxLength={60}
             count={countTitle}
           />
           <TextField
@@ -180,7 +183,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque o Subtítulo da consultoria"
             error={fieldError?.subtitle}
             onInputChange={(v) => handleInput('subtitle', v)}
-            maxLength={50}
+            maxLength={100}
             count={countSubTitle}
             icon={<AccountCircle />}
           />
@@ -193,7 +196,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
             placeholder="Coloque a descrição da consultoria"
             error={fieldError?.description}
             onInputChange={(v) => handleInput('description', v)}
-            maxLength={400}
+            maxLength={1300}
             icon={<AccountCircle />}
             count={countDescription}
           />
