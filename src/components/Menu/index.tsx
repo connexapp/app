@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import {
   Menu as MenuIcon,
   ArrowDropDown
@@ -9,13 +9,33 @@ import { AuthContext } from 'context/AuthContext'
 import Button from 'components/Button'
 import MediaMatch from 'components/MediaMatch'
 import * as S from './styles'
+import { useRequestConfig } from 'hooks/useRequest'
+import { request } from 'http'
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [dealer, setDealer] = useState(false)
   const [isOpenDropdown, setIsOpenDropdown] = useState(false)
   const { user, logout } = useContext(AuthContext)
   const avatar = user?.profilePictureUrl
   const diferente = '/circulo-avatar.jpg'
+  console.log('user.id', user)
+
+  useEffect(() => {
+
+    const getSale = async () => {
+      const config: useRequestConfig = {
+        method: 'GET',
+        url: `/user/haveSale/${4}`,
+        sendToken: true
+
+      }
+
+      const response = await request(config)
+    }
+    getSale()
+  },[])
+
   return (
     <S.Wrapper>
       <Link href="/" passHref>
@@ -36,7 +56,6 @@ const Menu = () => {
           </S.MenuButtons>
         </MediaMatch>
       )}
-
       {!!user && (
         <MediaMatch greaterThan="medium">
           <S.MenuButtonsWrapper>
@@ -47,13 +66,16 @@ const Menu = () => {
               <ArrowDropDown />
             </S.MenuButtonsUsername>
             <S.MenuDropdown isOpen={isOpenDropdown}>
-              <h3>Minha conta</h3>
+              <h3>Minha Conta</h3>
               <Link href="/profile" passHref>
                 <p>Perfil</p>
               </Link>
               <Link href="/my-services" passHref>
-                <p>Consultorias compradas</p>
+                <p>Consultorias Compradas</p>
               </Link>
+             {!dealer ?  <Link href="/my-consultancies-sold" passHref>
+                <p>Consultorias Vendidas</p>
+              </Link> : null}
               <p onClick={logout}>Sair</p>
             </S.MenuDropdown>
           </S.MenuButtonsWrapper>

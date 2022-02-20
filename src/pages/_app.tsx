@@ -5,7 +5,7 @@ import { AuthProvider } from '../context/AuthContext'
 import GlobalStyles from 'styles/global'
 import theme from 'styles/theme'
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'antd/dist/antd.css'
 function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>

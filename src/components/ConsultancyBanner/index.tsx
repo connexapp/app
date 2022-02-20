@@ -74,7 +74,8 @@ const ConsultancyBanner = ({
     const getService = async () => {
       const config: useRequestConfig = {
         method: 'GET',
-        url: `/service/read/${uuid}`
+        url: `/service/read/${uuid}`,
+        sendToken: true
       }
       const response = await request(config)
       setFree(response.dateCalendar)
