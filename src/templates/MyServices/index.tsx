@@ -16,6 +16,7 @@ const MyServices = () => {
   const { request } = useRequest()
   const userLogged = useContext(AuthContext)
   useEffect(() => {
+    
     const getMyServices = async () => {
       const config: useRequestConfig = {
         method: 'GET',

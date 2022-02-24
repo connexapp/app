@@ -7,10 +7,8 @@ import * as S from './styles'
 import Footer from 'components/Footer'
 import { useContext } from 'react'
 import { AuthContext } from 'context/AuthContext'
-import { Form, Input, Checkbox, Table, Space, Modal, Button } from 'antd';
-
-
-
+import { Form, Input, Table, Space, Modal } from 'antd';
+import { ConsultancyInfoBoxTitle } from 'components/ConsultancyBanner/styles'
 
 class Demo extends React.Component {
   state = {
@@ -26,8 +24,7 @@ const MyConsultanciesSold = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [dataModal, setDataModal] = useState();
-
-
+  const [meet, setMett] = useState('');
 
   useEffect(() => {
     if(userLogged){
@@ -36,7 +33,6 @@ const MyConsultanciesSold = () => {
           method: 'GET',
           url: `/schedule/getConsultanciesSold/${userLogged.user.id}`
         }
-  
         const response = await request(config)
         setMyConsultanciesSold(response)
       }
@@ -54,6 +50,7 @@ const MyConsultanciesSold = () => {
   };
 
   const openModal = (scheduleId) => {
+    console.log('scheduleId', scheduleId)
     setIsModalVisible(!isModalVisible);
     setDataModal(scheduleId)
   };
@@ -63,6 +60,21 @@ const MyConsultanciesSold = () => {
   };
 
   const handleOk = () => {
+    const bla = meet.split('/')
+    const indexx = bla.length - 1
+    const getMyServices = async () => {
+      const config: useRequestConfig = {
+        method: 'POST',
+        url: `/schedule/meet/4334/${bla[indexx]}`,
+        sendToken: true
+      }
+      
+      const response = await request(config)
+        console.log('sasdasd', response)
+      // setMyConsultanciesSold(response)
+    
+    }
+    getMyServices()
     setIsModalVisible(false);
   };
 
@@ -135,13 +147,9 @@ const MyConsultanciesSold = () => {
             name="linkMeet"
             rules={[{ required: true, message: 'insira o link da meet!' }]}
           >
-            <Input placeholder='EX: meet.google.com/vex-rqye-nyw '/>
+            <Input placeholder='EX: meet.google.com/vex-rqye-nyw ' onChange={(e) => setMett(e.target.value)} />
           </Form.Item>
-          {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item> */}
+          
         </Form>
         </Modal>
     </>

@@ -51,6 +51,7 @@ export const ConsultancyInfoBoxTitle = styled.h2`
   text-indent: 1.5rem;
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xxlarge};
+    color: #fff;
   `}
 `
 export const ConsultancyInfoBoxSubTitle = styled.h3`
@@ -58,6 +59,7 @@ export const ConsultancyInfoBoxSubTitle = styled.h3`
   ${({ theme }) => css`
     font-weight: ${theme.font.normal};
     font-size: ${theme.font.sizes.large};
+    color: #fff;
   `}
 `
 export const ConsultancyInfoBoxAuthorName = styled.p`
@@ -214,6 +216,10 @@ export const DivLabel = styled.div`
 `
 
 export const DivContent = styled.div`
+  flex-direction: column;
+`
+
+export const DivContentHours = styled.div`
    ${({ theme }) => css`
     display: flex;
     

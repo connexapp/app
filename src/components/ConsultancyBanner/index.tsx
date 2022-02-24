@@ -9,7 +9,8 @@ import { RowModal } from 'components/Calendar/components/modal/table/SaveHoursSe
 import { userData } from 'components/Calendar/components/modal/table/userData'
 import useRequest, { useRequestConfig } from 'hooks/useRequest'
 import { mask } from "remask"
-import { ArrowBackIosDimensions } from '@styled-icons/material-outlined/ArrowBackIos'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 export type ConsultancyBannerProps = {
   title: string
@@ -21,8 +22,17 @@ export type ConsultancyBannerProps = {
   description: string
   videoUrl: string
   uuid: any
+  serviceId: number
   freeHours: FreeHours[]
   handleClick: (gatway: string) => void
+}
+
+
+export type horasCompradas = {
+  day: string
+  hourEnd: string
+  hourStart: string
+  linkMeet: string
 }
 
 const ConsultancyBanner = ({
@@ -33,6 +43,7 @@ const ConsultancyBanner = ({
   promotionPrice,
   description,
   videoUrl,
+  serviceId,
   freeHours,
   uuid,
   handleClick
@@ -46,10 +57,26 @@ const ConsultancyBanner = ({
   const [service, setService] = useState<Service>()
   const [free, setFree] = useState<FreeHours[]>()
   const { request } = useRequest()
-
-
+  const [horasComprada, setHorasComprada] = useState<horasCompradas>()
+  const router = useRouter()
 
   const fakeDatePurchased: FreeHours[] = [{ date: '20012022', hours: [1] }]
+
+  useEffect(() => {
+    if(service){
+      const getFreeHours = async () => {
+        const config: useRequestConfig = {
+          method: 'GET',
+          url: `/schedule/getConsultancyPurchased/${user.id}/${service.id}`
+        }
+        const response = await request(config)
+        setHorasComprada(response)
+
+      }
+      getFreeHours()
+    }
+  }, [service])
+
 
   useEffect(() => {
     function getHours() {
@@ -85,8 +112,14 @@ const ConsultancyBanner = ({
     getService()
   }, [uuid])
   
+console.log('horasComprada', horasComprada)
+console.log('tableLine', tableLine)
 
-  let varivael =`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum Aliquam nonummy auctor massa Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.`
+const goMeet = (e) => {
+  e.preventDefault()
+  toast.error('Link do meet ainda não foi adicionado')
+}
+
 return (
     <S.Wrapper>
       <S.Background />
@@ -108,27 +141,35 @@ return (
                   <S.PromotionPrice>R$ {promotionPrice}</S.PromotionPrice>
                 )}
               </S.ConsultancyPricing>
-              {fakeHourPurchased ?
+              {horasComprada ?
                 (<div>
                   <S.Label>Seu Horário marcado para</S.Label>
                   {tableLine.map(({ id, start, end,}, index) => (
                     <S.DivLine key={index}>
                       <S.DivContent>
-                        <S.DivLabel>
-                          <label>{mask(fakeDatePurchased[0].date, ["99/99/9999"])}</label>
-                        </S.DivLabel>
-                        Das
-                        <S.DivLabel>
-                          <label>{start}</label>
-                        </S.DivLabel>
-                        às
-                        <S.DivLabel>
-                          <label>{end}</label>
-                        </S.DivLabel>
+                        <div>
+                          <S.DivLabel>
+                            <label>{mask(horasComprada.day, ["99/99/9999"])}</label>
+                          </S.DivLabel>
+                        </div>
+                        <S.DivContentHours>
+                          Das
+                          <S.DivLabel>
+                            <label>{horasComprada.hourStart}</label>
+                          </S.DivLabel>
+                          às
+                          <S.DivLabel>
+                            <label>{horasComprada.hourEnd}</label>
+                          </S.DivLabel>
+                        </S.DivContentHours>
                       </S.DivContent>
                     </S.DivLine>
                   ))}
-                  <S.ALinkLabel href={meetLink}>Ir para o meet</S.ALinkLabel>
+                  {!horasComprada.linkMeet ? 
+                    <S.ALinkLabel  href={`https://meet.google.com/${horasComprada.linkMeet}`} target={`_blank`} >Ir para o Meet</S.ALinkLabel> 
+                    :
+                    <S.ALinkLabel onClick={goMeet}>Ir para o Meet</S.ALinkLabel> 
+                  }
                 </div>
                 ) : !!user && (
                   <>

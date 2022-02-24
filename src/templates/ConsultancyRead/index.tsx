@@ -6,6 +6,7 @@ import ConsultancyBanner from 'components/ConsultancyBanner'
 
 import * as S from './styles'
 import Footer from 'components/Footer'
+import { ToastContainer } from 'react-toastify'
 
 export type ConsultancyReadProps = {
   uuid?: string | string[] | undefined
@@ -92,11 +93,26 @@ const ConsultancyRead = ({ uuid, date, hour}: ConsultancyReadProps) => {
       window.open(url)
     }
   }
-  return<S.Wrapper>
+  return(
+      <>
+        <S.Wrapper>
           <Menu />
-            <ConsultancyBanner freeHours={freeHours} handleClick={handleClick} {...service} />
+            <ConsultancyBanner serviceId={serviceId} freeHours={freeHours} handleClick={handleClick} {...service} />
             <Footer bottom={false}/>
         </S.Wrapper>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </>
+  )
 }
 
 export default ConsultancyRead

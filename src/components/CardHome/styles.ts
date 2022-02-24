@@ -3,8 +3,10 @@ import styled, { css } from 'styled-components'
 export const Wrapper = styled.div`
   max-width: 29.3rem;
   min-width: 29.3rem;
-  max-height: 24.8rem;
-  min-height: 24.8rem;
+  /* max-height: 29.3rem;
+  min-height: 29.3rem; */
+  max-height: 26.8rem;
+  min-height: 26.8rem;
   ${({ theme }) => css`
     color: ${theme.colors.black};
     cursor: pointer;
@@ -30,6 +32,7 @@ export const CardTitle = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+    margin: 0;
   `}
 `
 
@@ -59,6 +62,7 @@ export const CardAuthor = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0;
   `}
 `
 
@@ -69,6 +73,7 @@ export const Price = styled.span`
     font-weight: ${theme.font.bold};
     background-color: ${theme.colors.primary};
   `}
+  
 `
 export const PromotionPrice = styled.span`
   color: #73726c;

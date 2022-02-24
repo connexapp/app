@@ -58,7 +58,6 @@ const Provider = ({ uuid }: Uuid) => {
         }
 
         const response = await request(config)
-        
         if (response.error) {
           toast.error('um erro inesperado')
           return
