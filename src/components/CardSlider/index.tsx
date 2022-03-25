@@ -72,7 +72,7 @@ const CardSlider = (CardProps: { items: CardProps[] }) => {
   return (
     <S.Wrapper>
       <Slider settings={settings}>
-        {(CardProps.items || []) && CardProps.items.map((item: CardProps, index) => (
+        {(CardProps.items || []) && CardProps.items?.map((item: CardProps, index) => (
           <a
             key={index}
             onMouseDownCapture={handleMouseDown}

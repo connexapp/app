@@ -51,14 +51,14 @@ const useRequest = () => {
       return response.data
     } catch (error) {
 
-      const errorMessage = errorHandler(error.response.status)
+      const errorMessage = errorHandler(error.response?.status)
 
       setError(errorMessage)
 
       const errorResponse = {
         error: {
-          statusCode: error.response.data.statusCode,
-          message: error.response.data.message
+          statusCode: error.response?.data.statusCode,
+          message: error.response?.data.message
         }
       }
 

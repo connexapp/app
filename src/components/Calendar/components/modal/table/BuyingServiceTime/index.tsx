@@ -20,7 +20,7 @@ export interface RowModal {
 type Input = {
     day: Moment
     freeHours: FreeHours[]
-    handleClick: (gatway: string) => void
+    handleClick: (gatway: string, hourId: number) => void
     uuid: string | string[] | undefined
 }
 
@@ -52,7 +52,6 @@ const BuyingServiceTime = ({ day, freeHours, handleClick }: Input) => {
 
     const handleChange = (e) => {
         const { value } = e.target;
-
         setSelectedTime(true)
         setHourSelected(value)
     };
@@ -86,20 +85,28 @@ const BuyingServiceTime = ({ day, freeHours, handleClick }: Input) => {
                 </S.Form>
             </S.TableDiv>
             {
+                
                 selectedTime ?
                     (
                         <S.DivButton>
                             <S.ButtonStyled
-                                onClick={() => handleClick('NOWPAYMENTS')}
+                                onClick={() => handleClick('NOWPAYMENTS',hourSelected)}
                             >
                                 PAGAR COM NANO
                             </S.ButtonStyled>
                             <S.ButtonStyled
-                                onClick={() => handleClick('MERCADO_PAGO')}
+                                onClick={() => handleClick('MERCADO_PAGO',hourSelected)}
   
                                 style={{ backgroundColor: "#50b4e9"}}
                             >
                                 PAGAR
+                            </S.ButtonStyled>
+                            <S.ButtonStyled
+                                onClick={() => handleClick('PIX',hourSelected)}
+  
+                                style={{ backgroundColor: "#32CD32"}}
+                            >
+                                PAGAR COM PIX
                             </S.ButtonStyled>
                         </S.DivButton>
                     ) :

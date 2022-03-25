@@ -27,7 +27,7 @@ const MyConsultanciesSold = () => {
   const [meet, setMett] = useState('');
 
   useEffect(() => {
-    if(userLogged){
+    if(userLogged.user){
       const getMyServices = async () => {
         const config: useRequestConfig = {
           method: 'GET',

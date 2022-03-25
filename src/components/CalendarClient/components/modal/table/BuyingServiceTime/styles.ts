@@ -70,14 +70,15 @@ export const DivCheckBox = styled.div`
 
 export const DivButton = styled.div`
   display: flex;
-  justify-content: space-around;
+    align-items: center;
   border: none;
+  flex-direction: column;
   margin-left: auto;
   width: 100%;
 `
 
 export const ButtonStyled = styled.button`
-  width: 170px;
+  width: 100%;
   height: 35px;
   font-size: 1.5rem;
   display: inline-flex;
@@ -87,10 +88,15 @@ export const ButtonStyled = styled.button`
   justify-content: center;
   color: rgb(250, 250, 250);
   border-radius: 0.4rem;
+  margin:1px;
   border: 0px;
   text-decoration: none;
   cursor: pointer;
   background-color:#EC5252;
+  &:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  }
 `
 export const WrapperPaymentButtons = styled.div`
   ${media.greaterThan('medium')`
@@ -104,4 +110,14 @@ export const WrapperPaymentButtons = styled.div`
       margin-top: 0.5rem;
     }
   `}
+`
+export const CloseBox = styled.div`
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    cursor: pointer;
+  img{
+    width: 25px;
+  }
+  
 `

@@ -37,15 +37,16 @@ export default function ModalContent({ open, day, setOpenModal, freeHours, regis
     getService()
   }, [request, uuid])
 
-  const handleClick = async (gateway: string) => {
+  const handleClick = async (gateway: string, hourId: number) => {
     const configs: useRequestConfig = {
       method: 'POST',
       url: '/payment/create',
       sendToken: true,
       data: {
-        serviceUuid: uuid
+        serviceUuid: uuid,
+        hourId:hourId
         // aki mandar o dia e o id da hora 
-      }
+      } 
     }
 
     if (gateway === 'MERCADO_PAGO') {
@@ -54,6 +55,12 @@ export default function ModalContent({ open, day, setOpenModal, freeHours, regis
 
     if (gateway === 'NOWPAYMENTS') {
       configs.data.gateway = 'NOWPAYMENTS'
+    }
+    
+    if( gateway === 'PIX') {
+      configs.data.gateway = 'PIX'
+      configs.data.hourId = hourId.toString()
+      console.log("entrou")
     }
 
     const { url } = await request(configs)

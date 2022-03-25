@@ -88,6 +88,10 @@ const ConsultancyRead = ({ uuid, date, hour}: ConsultancyReadProps) => {
       configs.data.gateway = 'NOWPAYMENTS'
     }
 
+    if (gateway === 'PIX') {
+      configs.data.gateway = 'PIX'
+    }
+
     const { url } = await request(configs)
     if (url) {
       window.open(url)

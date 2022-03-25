@@ -72,7 +72,8 @@ const CardSliderHome = (CardProps: { items: CardProps[] }) => {
   return (
     <S.Wrapper>
       <S.Slicker>
-        {(CardProps.items || []) && CardProps.items.map((item: CardProps, index) => (
+        {console.log('CardProps.items', CardProps.items)}
+        {(CardProps.items || []) && CardProps.items?.map((item: CardProps, index) => (
           <a
             key={index}
             onMouseDownCapture={handleMouseDown}

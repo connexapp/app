@@ -101,6 +101,13 @@ const BuyingServiceTime = ({ day, freeHours, handleClick }: Input) => {
                             >
                                 PAGAR
                             </S.ButtonStyled>
+                            <S.ButtonStyled
+                                onClick={() => handleClick('PIX')}
+  
+                                style={{ backgroundColor: "#50b4e9"}}
+                            >
+                                PAGAR COM PIX
+                            </S.ButtonStyled>
                         </S.DivButton>
                     ) :
                     (null)
