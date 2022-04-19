@@ -196,7 +196,9 @@ export const ALinkLabel = styled.a`
 export const DivLine = styled.div`
   ${({ theme }) => css`
     display: flex;
-    width: 100%;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
   font-size: 2.2rem;
   font-weight: 600;
   font-family: ${theme.font.family};

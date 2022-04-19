@@ -26,6 +26,7 @@ const Home = () => {
       }
 
       const response = await request(config)
+      console.log({response})
       setIsSpinning(false)
       setServiceRecents(response)
     }
@@ -56,7 +57,7 @@ const Home = () => {
       <S.CardSection>
         <Container>
           <h2>Fale com um especialista</h2>
-          <Spin style={{ width: "fit-content", margin: "30px auto 0 auto "}} indicator={antIcon} spinning={isSpinning}>
+          <Spin style={{ width: "fit-content", display: 'flex',margin: "30px auto 0px auto "}} indicator={antIcon} spinning={isSpinning}>
             {!isSpinning && 
               <CardSliderHome items={servicesRecents} />
             }

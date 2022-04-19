@@ -25,7 +25,7 @@ const Footer = ({ bottom }: FooterProps) => {
           <br />
           <p>
             seus conhecimentos e serviços pessoas que queiram aprender e
-            contrata-los
+            contata-los
           </p>
         </div>
         <div>

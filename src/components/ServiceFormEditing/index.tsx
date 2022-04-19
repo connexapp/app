@@ -65,7 +65,6 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    console.log("sssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
     event.preventDefault()
     const errors = signInServiceValidate(values)
 
@@ -138,7 +137,7 @@ const ProviderForm = ({ setRegisteredService, registeredService, setServiceAndPr
 
     updateConsultancy()
   }
-
+  console.log(values)
   function updateConsultancy() {
     console.log('entrou aqui')
     const updateService = async () => {

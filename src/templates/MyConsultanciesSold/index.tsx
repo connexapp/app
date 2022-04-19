@@ -34,6 +34,11 @@ const MyConsultanciesSold = () => {
           url: `/schedule/getConsultanciesSold/${userLogged.user.id}`
         }
         const response = await request(config)
+        if(response.error){
+          setMyConsultanciesSold([])
+          return
+        }
+        console.log(111111111, {response})
         setMyConsultanciesSold(response)
       }
   
@@ -71,6 +76,7 @@ const MyConsultanciesSold = () => {
       
       const response = await request(config)
         console.log('sasdasd', response)
+        
       // setMyConsultanciesSold(response)
     
     }

@@ -89,18 +89,18 @@ const BuyingServiceTime = ({ day, freeHours, handleClick }: Input) => {
                 selectedTime ?
                     (
                         <S.DivButton>
-                            <S.ButtonStyled
+                            {/* <S.ButtonStyled
                                 onClick={() => handleClick('NOWPAYMENTS',hourSelected)}
                             >
                                 PAGAR COM NANO
-                            </S.ButtonStyled>
-                            <S.ButtonStyled
+                            </S.ButtonStyled> */}
+                            {/* <S.ButtonStyled
                                 onClick={() => handleClick('MERCADO_PAGO',hourSelected)}
   
                                 style={{ backgroundColor: "#50b4e9"}}
                             >
                                 PAGAR
-                            </S.ButtonStyled>
+                            </S.ButtonStyled> */}
                             <S.ButtonStyled
                                 onClick={() => handleClick('PIX',hourSelected)}
   

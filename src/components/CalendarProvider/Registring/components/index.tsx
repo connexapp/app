@@ -63,7 +63,7 @@ export default function CalendarComponent({ value, onChange, service, providerId
 
   async function changeDay(day: moment.Moment) {
     if (!service) {
-      toast.error('cadastre primeiro uma consultoria')
+      toast.error('Clique em Confirmar Primeiro')
       return
     }
 

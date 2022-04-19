@@ -66,7 +66,7 @@ export default function CalendarComponent({ value, onChange, label, freeHours, r
     if (!uuid){
       if (registering) {
         if (!service) {
-          toast.error('cadastre primeiro uma consultoria')
+          toast.error('Clique em Confirmar Primeiro')
           return
         }
       }
